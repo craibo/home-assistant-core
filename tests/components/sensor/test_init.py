@@ -1158,6 +1158,7 @@ async def test_non_numeric_device_class_with_unit_of_measurement(
         SensorDeviceClass.NITROGEN_MONOXIDE,
         SensorDeviceClass.NITROUS_OXIDE,
         SensorDeviceClass.OZONE,
+        SensorDeviceClass.PACE,
         SensorDeviceClass.PM1,
         SensorDeviceClass.PM10,
         SensorDeviceClass.PM25,
