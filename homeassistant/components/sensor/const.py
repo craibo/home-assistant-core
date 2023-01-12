@@ -24,6 +24,7 @@ from homeassistant.const import (
     UnitOfIrradiance,
     UnitOfLength,
     UnitOfMass,
+    UnitOfPace,
     UnitOfPower,
     UnitOfPrecipitationDepth,
     UnitOfPressure,
@@ -43,6 +44,7 @@ from homeassistant.util.unit_conversion import (
     EnergyConverter,
     InformationConverter,
     MassConverter,
+    PaceConverter,
     PressureConverter,
     SpeedConverter,
     TemperatureConverter,
@@ -233,6 +235,14 @@ class SensorDeviceClass(StrEnum):
     Unit of measurement: `µg/m³`
     """
 
+    PACE = "pace"
+    """Pace.
+
+    Unit of measurement: `UnitOfPace`
+    - SI /metric: `min/km`, `s/m`
+    - USCS / imperial: `min/mi`, `s/ft`
+    """
+
     PM1 = "pm1"
     """Particulate matter <= 0.1 μm.
 
@@ -421,6 +431,7 @@ UNIT_CONVERTERS: dict[SensorDeviceClass | str | None, type[BaseUnitConverter]] =
     SensorDeviceClass.CURRENT: ElectricCurrentConverter,
     SensorDeviceClass.ENERGY: EnergyConverter,
     SensorDeviceClass.GAS: VolumeConverter,
+    SensorDeviceClass.PACE: PaceConverter,
     SensorDeviceClass.PRECIPITATION: DistanceConverter,
     SensorDeviceClass.PRESSURE: PressureConverter,
     SensorDeviceClass.SPEED: SpeedConverter,
@@ -464,6 +475,7 @@ DEVICE_CLASS_UNITS: dict[SensorDeviceClass, set[type[StrEnum] | str | None]] = {
     SensorDeviceClass.NITROGEN_MONOXIDE: {CONCENTRATION_MICROGRAMS_PER_CUBIC_METER},
     SensorDeviceClass.NITROUS_OXIDE: {CONCENTRATION_MICROGRAMS_PER_CUBIC_METER},
     SensorDeviceClass.OZONE: {CONCENTRATION_MICROGRAMS_PER_CUBIC_METER},
+    SensorDeviceClass.PACE: {UnitOfPace},
     SensorDeviceClass.PM1: {CONCENTRATION_MICROGRAMS_PER_CUBIC_METER},
     SensorDeviceClass.PM10: {CONCENTRATION_MICROGRAMS_PER_CUBIC_METER},
     SensorDeviceClass.PM25: {CONCENTRATION_MICROGRAMS_PER_CUBIC_METER},
