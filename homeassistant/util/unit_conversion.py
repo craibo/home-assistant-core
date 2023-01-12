@@ -10,6 +10,7 @@ from homeassistant.const import (
     UnitOfInformation,
     UnitOfLength,
     UnitOfMass,
+    UnitOfPace,
     UnitOfPower,
     UnitOfPressure,
     UnitOfSpeed,
@@ -434,4 +435,23 @@ class VolumeConverter(BaseUnitConverter):
         UnitOfVolume.CUBIC_METERS,
         UnitOfVolume.CUBIC_FEET,
         UnitOfVolume.CENTUM_CUBIC_FEET,
+    }
+
+
+class PaceConverter(BaseUnitConverter):
+    """Utility to convert pace values."""
+
+    UNIT_CLASS = "pace"
+    NORMALIZED_UNIT = UnitOfPace.MINUTES_PER_KILOMETER
+    _UNIT_CONVERSION: dict[str, float] = {
+        UnitOfPace.SECONDS_PER_METER: _KM_TO_M / 60,
+        UnitOfPace.MINUTES_PER_KILOMETER: 1,
+        UnitOfPace.SECONDS_PER_FEET: _FOOT_TO_M / 60,
+        UnitOfPace.MINUTES_PER_MILE: _MILE_TO_M * 1000,
+    }
+    VALID_UNITS = {
+        UnitOfPace.SECONDS_PER_METER,
+        UnitOfPace.MINUTES_PER_KILOMETER,
+        UnitOfPace.SECONDS_PER_FEET,
+        UnitOfPace.MINUTES_PER_MILE,
     }

@@ -1161,3 +1161,12 @@ CAST_APP_ID_HOMEASSISTANT_LOVELACE: Final = "A078F6B0"
 HASSIO_USER_NAME = "Supervisor"
 
 SIGNAL_BOOTSTRAP_INTEGRATIONS = "bootstrap_integrations"
+
+# Pace units
+class UnitOfPace(StrEnum):
+    """Pace units."""
+
+    SECONDS_PER_METER = "s/m"
+    MINUTES_PER_KILOMETER = "min/km"
+    SECONDS_PER_FEET = "s/ft"
+    MINUTES_PER_MILE = "min/mi"
