@@ -446,12 +446,12 @@ class PaceConverter(BaseUnitConverter):
     _UNIT_CONVERSION: dict[str, float] = {
         UnitOfPace.SECONDS_PER_METER: _KM_TO_M / 60,
         UnitOfPace.MINUTES_PER_KILOMETER: 1,
-        UnitOfPace.SECONDS_PER_FEET: _FOOT_TO_M / 60,
+        UnitOfPace.SECONDS_PER_FOOT: _FOOT_TO_M / 60,
         UnitOfPace.MINUTES_PER_MILE: _MILE_TO_M * 1000,
     }
     VALID_UNITS = {
         UnitOfPace.SECONDS_PER_METER,
         UnitOfPace.MINUTES_PER_KILOMETER,
-        UnitOfPace.SECONDS_PER_FEET,
+        UnitOfPace.SECONDS_PER_FOOT,
         UnitOfPace.MINUTES_PER_MILE,
     }

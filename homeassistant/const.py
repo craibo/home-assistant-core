@@ -1168,5 +1168,5 @@ class UnitOfPace(StrEnum):
 
     SECONDS_PER_METER = "s/m"
     MINUTES_PER_KILOMETER = "min/km"
-    SECONDS_PER_FEET = "s/ft"
+    SECONDS_PER_FOOT = "s/ft"
     MINUTES_PER_MILE = "min/mi"

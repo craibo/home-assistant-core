@@ -8,6 +8,7 @@ from homeassistant.const import (
     UnitOfInformation,
     UnitOfLength,
     UnitOfMass,
+    UnitOfPace,
     UnitOfPower,
     UnitOfPressure,
     UnitOfSpeed,
@@ -24,6 +25,7 @@ from homeassistant.util.unit_conversion import (
     EnergyConverter,
     InformationConverter,
     MassConverter,
+    PaceConverter,
     PowerConverter,
     PressureConverter,
     SpeedConverter,
@@ -85,6 +87,10 @@ INVALID_SYMBOL = "bob"
         (VolumeConverter, UnitOfVolume.MILLILITERS),
         (VolumeConverter, UnitOfVolume.GALLONS),
         (VolumeConverter, UnitOfVolume.FLUID_OUNCES),
+        (PaceConverter, UnitOfPace.MINUTES_PER_KILOMETER),
+        (PaceConverter, UnitOfPace.SECONDS_PER_METER),
+        (PaceConverter, UnitOfPace.MINUTES_PER_MILE),
+        (PaceConverter, UnitOfPace.SECONDS_PER_FOOT),
     ],
 )
 def test_convert_same_unit(converter: type[BaseUnitConverter], valid_unit: str) -> None:
@@ -142,6 +148,7 @@ def test_convert_invalid_unit(
         (SpeedConverter, UnitOfSpeed.KILOMETERS_PER_HOUR, UnitOfSpeed.MILES_PER_HOUR),
         (TemperatureConverter, UnitOfTemperature.CELSIUS, UnitOfTemperature.FAHRENHEIT),
         (VolumeConverter, UnitOfVolume.GALLONS, UnitOfVolume.LITERS),
+        (PaceConverter, UnitOfPace.MINUTES_PER_KILOMETER, UnitOfPace.MINUTES_PER_MILE),
     ],
 )
 def test_convert_nonnumeric_value(
@@ -194,6 +201,12 @@ def test_convert_nonnumeric_value(
             UnitOfVolume.GALLONS,
             UnitOfVolume.LITERS,
             pytest.approx(0.264172),
+        ),
+        (
+            PaceConverter,
+            UnitOfPace.MINUTES_PER_KILOMETER,
+            UnitOfPace.MINUTES_PER_MILE,
+            pytest.approx(1.60934),
         ),
     ],
 )
@@ -658,3 +671,22 @@ def test_volume_convert(
 ) -> None:
     """Test conversion to other units."""
     assert VolumeConverter.convert(value, from_unit, to_unit) == pytest.approx(expected)
+
+
+@pytest.mark.parametrize(
+    "value,from_unit,expected,to_unit",
+    [
+        (6, UnitOfPace.MINUTES_PER_KILOMETER, 0.36, UnitOfPace.SECONDS_PER_METER),
+        (6, UnitOfPace.MINUTES_PER_KILOMETER, 9.65606, UnitOfPace.MINUTES_PER_MILE),
+        (6, UnitOfPace.MINUTES_PER_KILOMETER, 0.109728, UnitOfPace.SECONDS_PER_FOOT),
+        (6, UnitOfPace.MINUTES_PER_MILE, 0.223694, UnitOfPace.SECONDS_PER_METER),
+        (6, UnitOfPace.MINUTES_PER_MILE, 0.0681818, UnitOfPace.SECONDS_PER_FOOT),
+        (6, UnitOfPace.SECONDS_PER_METER, 1.8288, UnitOfPace.SECONDS_PER_FOOT),
+    ],
+)
+def test_pace_convert(
+    value: float, from_unit: str, expected: float, to_unit: str
+) -> None:
+    """Test conversion to other units."""
+    expected = pytest.approx(expected)
+    assert PaceConverter.convert(value, from_unit, to_unit) == expected
