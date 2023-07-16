@@ -18,28 +18,20 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 
-ATTR_STOP_ID = "stop_id"
-ATTR_ROUTE = "route"
-ATTR_DUE_IN = "due"
-ATTR_DELAY = "delay"
-ATTR_REAL_TIME = "real_time"
-ATTR_DESTINATION = "destination"
-
-CONF_STOP_ID = "stop_id"
-CONF_ROUTE = "route"
-CONF_DESTINATION = "destination"
-
-DEFAULT_NAME = "Next Bus"
-ICONS = {
-    "Train": "mdi:train",
-    "Lightrail": "mdi:tram",
-    "Bus": "mdi:bus",
-    "Coach": "mdi:bus",
-    "Ferry": "mdi:ferry",
-    "Schoolbus": "mdi:bus",
-    "n/a": "mdi:clock",
-    None: "mdi:clock",
-}
+from .const import (
+    ATTR_DELAY,
+    ATTR_DESTINATION,
+    ATTR_DUE_IN,
+    ATTR_REAL_TIME,
+    ATTR_ROUTE,
+    ATTR_STOP_ID,
+    ATTRIBUTION,
+    CONF_DESTINATION,
+    CONF_ROUTE,
+    CONF_STOP_ID,
+    DEFAULT_NAME,
+    ICONS,
+)
 
 SCAN_INTERVAL = timedelta(seconds=60)
 
@@ -74,7 +66,7 @@ def setup_platform(
 class TransportNSWSensor(SensorEntity):
     """Implementation of an Transport NSW sensor."""
 
-    _attr_attribution = "Data provided by Transport NSW"
+    _attr_attribution = ATTRIBUTION
     _attr_device_class = SensorDeviceClass.DURATION
     _attr_state_class = SensorStateClass.MEASUREMENT
 

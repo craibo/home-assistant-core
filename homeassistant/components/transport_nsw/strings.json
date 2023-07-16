@@ -1,0 +1,17 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Next departure setup Transport NSW",
+        "description": "Setup the next departure from a Transport NSW stop for bus, train, light rail or ferry.",
+        "data": {
+          "api_key": "Your API key for Open Data Transport NSW",
+          "stop_id": "The ID of the stop to get the information for",  
+          "name": "Friendly Name",
+          "route": "Filter on bus route at the stop (This is the same as the bus number, e.g. 83)",
+          "destination": "Useful for ferry or train stops to filter the destination of the sensor (e.g. Circular Quay)
+        }
+      }
+    }
+  }
+}
