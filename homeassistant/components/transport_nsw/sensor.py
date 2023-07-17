@@ -145,10 +145,14 @@ class PublicTransportData:
             self._stop_id, self._route, self._destination, self._api_key
         )
         self.info = {
-            ATTR_ROUTE: _data["route"],
-            ATTR_DUE_IN: _data["due"],
-            ATTR_DELAY: _data["delay"],
-            ATTR_REAL_TIME: _data["real_time"],
-            ATTR_DESTINATION: _data["destination"],
-            ATTR_MODE: _data["mode"],
+            ATTR_ROUTE: self._get_value(_data["route"]),
+            ATTR_DUE_IN: self._get_value(_data["due"]),
+            ATTR_DELAY: self._get_value(_data["delay"]),
+            ATTR_REAL_TIME: self._get_value(_data["real_time"]),
+            ATTR_DESTINATION: self._get_value(_data["destination"]),
+            ATTR_MODE: self._get_value(_data["mode"]),
         }
+
+    def _get_value(self, value):  # noqa: N805
+        """Replace the API response 'n/a' value with None."""
+        return None if (value is None or str(value) == "n/a") else value
