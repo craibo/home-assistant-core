@@ -75,6 +75,8 @@ class TransportNSWSensor(SensorEntity):
     """Implementation of an Transport NSW sensor."""
 
     _attr_attribution = "Data provided by Transport NSW"
+    _attr_device_class = SensorDeviceClass.DURATION
+    _attr_state_class = SensorStateClass.MEASUREMENT
 
     def __init__(self, data, stop_id, name):
         """Initialize the sensor."""
