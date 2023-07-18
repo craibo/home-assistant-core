@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import logging
+from typing import Any
 
-from dict import Any, Dict, Optional
 import voluptuous as vol
 
 from homeassistant import config_entries
@@ -19,8 +19,8 @@ _LOGGER = logging.getLogger(__name__)
 
 def _get_schema(
     hass: HomeAssistant,
-    user_input: Optional[Dict[str, Any]],
-    default_dict: Dict[str, Any],
+    user_input: dict[str, Any],
+    default_dict: dict[str, Any],
     entry_id: str = None,
 ) -> vol.Schema:
     # pylint: disable=deprecated-typing-alias
@@ -40,16 +40,18 @@ def _get_schema(
             vol.Required(CONF_STOP_ID, default=_get_default(CONF_STOP_ID)): cv.string,
             vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
             vol.Optional(CONF_ROUTE, default=_get_default(CONF_ROUTE)): cv.string,
-            vol.Optional(CONF_DESTINATION, default=_get_default(CONF_DESTINATION)): cv.string,
+            vol.Optional(
+                CONF_DESTINATION, default=_get_default(CONF_DESTINATION)
+            ): cv.string,
         }
     )
 
 
 @config_entries.HANDLERS.register(DOMAIN)
 class TransportNSWFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Config flow for TeamTracker."""
+    """Config flow for TransportNSW."""
 
-    VERSION = 3
+    VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
 
     def __init__(self):
@@ -60,9 +62,7 @@ class TransportNSWFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Handle a flow initialized by the user."""
 
         if user_input is not None:
-            return self.async_create_entry(
-                title=self._data[CONF_NAME], data=self._data
-            )
+            return self.async_create_entry(title=self._data[CONF_NAME], data=self._data)
         return await self._show_config_form(user_input)
 
     async def _show_config_form(self, user_input):
@@ -77,6 +77,5 @@ class TransportNSWFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             CONF_DESTINATION: None,
         }
         return self.async_show_form(
-            step_id="user",
-            data_schema=_get_schema(self.hass, user_input, defaults)
+            step_id="user", data_schema=_get_schema(self.hass, user_input, defaults)
         )
